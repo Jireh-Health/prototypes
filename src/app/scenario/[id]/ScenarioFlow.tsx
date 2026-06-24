@@ -336,16 +336,17 @@ function IDVerifying() {
   );
 }
 
-function NameMismatch({ s, set, registryName, onRetry, onManual, attemptsLeft }: { s: FlowState; set: (v: FlowState) => void; registryName: string; onRetry: () => void; onManual: () => void; attemptsLeft: number }) {
+function NameMismatch({ s, set, onRetry, onManual, attemptsLeft }: { s: FlowState; set: (v: FlowState) => void; onRetry: () => void; onManual: () => void; attemptsLeft: number }) {
   return (
     <ScreenShell>
       <TopNav title="ID Verification" />
       <Card variant="error">
-        <strong>Name mismatch.</strong> The name on your ID (<strong>{registryName}</strong>) does not match the name you entered (<strong>{s.firstName} {s.lastName}</strong>). You can update your name and try again, or verify manually by uploading a photo of your ID.
+        <strong>Name mismatch.</strong> The name you entered does not match the name on your national ID. Please check your details and try again, or verify manually by uploading a photo of your ID.
       </Card>
       <div style={{ marginTop: 20 }}>
         <Field label="First name" value={s.firstName} onChange={(v) => set({ ...s, firstName: v })} />
         <Field label="Last name" value={s.lastName} onChange={(v) => set({ ...s, lastName: v })} />
+        <Field label="National ID number" value={s.idNumber} onChange={(v) => set({ ...s, idNumber: v.replace(/\D/g, "").slice(0, 10) })} placeholder="e.g. 28456712" maxLength={10} />
       </div>
       {attemptsLeft > 0 && <p style={{ fontSize: "0.75rem", color: "var(--fg-muted)", marginBottom: 16, textAlign: "center" }}>{attemptsLeft} {attemptsLeft === 1 ? "attempt" : "attempts"} remaining</p>}
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -662,7 +663,7 @@ export default function ScenarioPage() {
       case "id_verification": return <IDEntry s={s} set={setS} onSubmit={handleIDSubmit} back={() => setScreen("kyc_intro")} attemptsLeft={attemptsLeft} />;
       case "id_verifying": return <IDVerifying />;
       case "name_consent": return <NameConsent s={s} registryName={s.registryName} onAccept={() => setScreen("dashboard_verified")} onDispute={() => setScreen("manual_intro")} />;
-      case "id_fail_mismatch": return <NameMismatch s={s} set={setS} registryName={s.registryName} onRetry={() => setScreen("id_verification")} onManual={() => setScreen("manual_intro")} attemptsLeft={attemptsLeft} />;
+      case "id_fail_mismatch": return <NameMismatch s={s} set={setS} onRetry={handleIDSubmit} onManual={() => setScreen("manual_intro")} attemptsLeft={attemptsLeft} />;
       case "id_fail_service_down": return <ServiceDown onRetry={handleIDSubmit} onManual={() => setScreen("manual_intro")} />;
       case "id_fail_max_attempts": return <MaxAttempts onManual={() => setScreen("manual_intro")} />;
       case "manual_intro": return <ManualIntro next={() => setScreen("capture_id_front")} back={() => setScreen("id_verification")} />;
