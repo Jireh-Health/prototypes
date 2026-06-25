@@ -2,173 +2,109 @@
 
 import Link from "next/link";
 
-const SCENARIOS = [
+const PROTOTYPES = [
   {
-    id: "happy-path",
-    title: "Happy Path",
-    description: "Automated verification succeeds. Names match exactly. Straight through to verified dashboard.",
-    icon: "✅",
-    color: "#16A34A",
-    bg: "#DCFCE7",
-    specRef: "Scenario 7.3.1",
-  },
-  {
-    id: "name-mismatch-retry",
-    title: "Name Mismatch + Retry",
-    description: "Registry returns a different name (Fatuma vs Fatma). User sees both names, corrects, and retries successfully.",
-    icon: "🔄",
-    color: "#2563EB",
-    bg: "#DBEAFE",
-    specRef: "Scenario 7.3.2",
-  },
-  {
-    id: "service-down-manual",
-    title: "Service Down + Manual Fallback",
-    description: "Pata Score API is down. User sees 'temporarily unavailable' (no attempt consumed) and switches to manual ID photo upload.",
-    icon: "🔌",
-    color: "#EA580C",
-    bg: "#FFF7ED",
-    specRef: "Scenario 7.3.3",
-  },
-  {
-    id: "name-differs-consent",
-    title: "Name Differs + Consent",
-    description: "Verification succeeds but the registry name differs from the form name. Name consent screen shown before proceeding.",
-    icon: "📝",
+    id: "id-verification",
+    title: "ID Verification",
+    description:
+      "Sign-up to ID verification flow with fallback and transparency improvements. Covers automated verification, name mismatch retry, manual upload, and edge cases.",
+    icon: "🪪",
     color: "#7B18B8",
     bg: "#FBF0FF",
-    specRef: "Scenario 7.3.5",
-  },
-  {
-    id: "max-attempts",
-    title: "Max Attempts Exhausted",
-    description: "4 failed attempts from name mismatches. Unlike the old flow (dead end), manual fallback is still available.",
-    icon: "🚫",
-    color: "#DC2626",
-    bg: "#FEE2E2",
-    specRef: "Scenario 7.3.8",
-  },
-  {
-    id: "manual-approved",
-    title: "Manual Verification Approved",
-    description: "Full end-to-end: service is down, user uploads ID photos, waits on limited dashboard, admin approves.",
-    icon: "📸",
-    color: "#2D7A3A",
-    bg: "#DCFCE7",
-    specRef: "Scenarios 7.3.3 + 7.3.4",
-  },
-  {
-    id: "manual-rejected",
-    title: "Manual Verification Rejected",
-    description: "Admin reviews the uploaded ID photos and rejects them with a specific reason. User sees why and can re-upload.",
-    icon: "👎",
-    color: "#DC2626",
-    bg: "#FEE2E2",
-    specRef: "Scenario 7.3.4 — Manual Review Rejection + Retry",
-  },
-  {
-    id: "old-blocked",
-    title: "Old Flow: Blocked (Dead End)",
-    description: "The current production experience. User fails verification and hits a dead-end page with only a WhatsApp link. No fallback.",
-    icon: "💀",
-    color: "#6B7280",
-    bg: "#F3F4F6",
-    specRef: "Problem 2.1 — No Fallback",
+    status: "Live" as const,
   },
 ];
 
-export default function HomePage() {
+export default function PrototypesHome() {
   return (
     <div style={{ maxWidth: 960, margin: "0 auto", padding: "48px 24px" }}>
       <div style={{ marginBottom: 40 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
-          <div style={{ width: 40, height: 40, borderRadius: 10, background: "#FBF0FF", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: 10,
+              background: "#FBF0FF",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <span style={{ fontSize: 20, fontWeight: 700, color: "#A020F0" }}>J</span>
           </div>
           <div>
             <h1 style={{ fontSize: "1.75rem", fontWeight: 700, color: "var(--fg-heading)", lineHeight: 1.2 }}>
-              ID Verification Prototype
+              Prototypes
             </h1>
             <p style={{ fontSize: "0.8125rem", color: "var(--fg-muted)" }}>Jireh Health</p>
           </div>
         </div>
         <p style={{ fontSize: "0.9375rem", color: "var(--fg-muted)", lineHeight: 1.6, maxWidth: 640 }}>
-          Interactive prototype of the sign-up to ID verification flow with the proposed fallback and transparency changes.
-          Each scenario walks through the full onboarding (phone, OTP, name, PIN) then diverges at ID verification to demonstrate a specific outcome.
+          Interactive prototypes for Jireh Health product features. Click a tile to explore scenarios.
         </p>
-        <div style={{ marginTop: 12, padding: "8px 14px", borderRadius: 8, background: "#F3F4F6", display: "inline-block" }}>
-          <span style={{ fontSize: "0.75rem", color: "var(--fg-muted)", fontFamily: "var(--font-mono)" }}>
-            Spec: patient-id-verification-fallback-and-transparency.md
-          </span>
-        </div>
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16 }}>
-        {SCENARIOS.map((s) => (
+        {PROTOTYPES.map((p) => (
           <Link
-            key={s.id}
-            href={`/scenario/${s.id}`}
+            key={p.id}
+            href={`/${p.id}`}
             style={{
               textDecoration: "none",
-              padding: 20,
+              padding: 24,
               borderRadius: 12,
               border: "1px solid var(--border-default)",
               background: "var(--bg-surface)",
               display: "flex",
               flexDirection: "column",
-              gap: 12,
+              gap: 14,
               transition: "box-shadow 0.15s, border-color 0.15s",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.08)";
-              e.currentTarget.style.borderColor = s.color;
+              e.currentTarget.style.borderColor = p.color;
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.boxShadow = "none";
               e.currentTarget.style.borderColor = "var(--border-default)";
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <div style={{ width: 36, height: 36, borderRadius: 8, background: s.bg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>
-                {s.icon}
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <div
+                style={{
+                  width: 44,
+                  height: 44,
+                  borderRadius: 10,
+                  background: p.bg,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: 22,
+                }}
+              >
+                {p.icon}
               </div>
-              <h3 style={{ fontSize: "0.9375rem", fontWeight: 600, color: "var(--fg-heading)", flex: 1 }}>{s.title}</h3>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ fontSize: "1.0625rem", fontWeight: 600, color: "var(--fg-heading)" }}>{p.title}</h3>
+              </div>
+              <span
+                style={{
+                  fontSize: "0.6875rem",
+                  fontWeight: 600,
+                  color: p.status === "Live" ? "#16A34A" : "#EA580C",
+                  background: p.status === "Live" ? "#DCFCE7" : "#FFF7ED",
+                  padding: "2px 8px",
+                  borderRadius: 99,
+                }}
+              >
+                {p.status}
+              </span>
             </div>
-            <p style={{ fontSize: "0.8125rem", color: "var(--fg-muted)", lineHeight: 1.5, flex: 1 }}>{s.description}</p>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span style={{ fontSize: "0.6875rem", color: s.color, fontWeight: 500 }}>{s.specRef}</span>
-              <span style={{ fontSize: "0.75rem", color: s.color, fontWeight: 500 }}>Open →</span>
-            </div>
+            <p style={{ fontSize: "0.8125rem", color: "var(--fg-muted)", lineHeight: 1.5 }}>{p.description}</p>
+            <span style={{ fontSize: "0.8125rem", color: p.color, fontWeight: 500 }}>Explore scenarios →</span>
           </Link>
         ))}
-      </div>
-
-      <div style={{ marginTop: 48, paddingTop: 24, borderTop: "1px solid var(--border-default)" }}>
-        <h2 style={{ fontSize: "1rem", fontWeight: 600, color: "var(--fg-heading)", marginBottom: 12 }}>What changed from the current flow</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-          <div style={{ padding: 16, borderRadius: 8, background: "#FEE2E2", border: "1px solid rgba(220,38,38,0.15)" }}>
-            <p style={{ fontSize: "0.75rem", fontWeight: 600, color: "#DC2626", marginBottom: 6 }}>Before (current production)</p>
-            <ul style={{ fontSize: "0.8125rem", color: "var(--fg-default)", lineHeight: 1.6, paddingLeft: 16, margin: 0 }}>
-              <li>No explanation of what verification does</li>
-              <li>Generic error on failure</li>
-              <li>No manual fallback path</li>
-              <li>Service downtime consumes attempts</li>
-              <li>Silent name overwrite on success</li>
-              <li>Dead-end block after 4 failures</li>
-            </ul>
-          </div>
-          <div style={{ padding: 16, borderRadius: 8, background: "#DCFCE7", border: "1px solid rgba(22,163,74,0.15)" }}>
-            <p style={{ fontSize: "0.75rem", fontWeight: 600, color: "#16A34A", marginBottom: 6 }}>After (this prototype)</p>
-            <ul style={{ fontSize: "0.8125rem", color: "var(--fg-default)", lineHeight: 1.6, paddingLeft: 16, margin: 0 }}>
-              <li>Context card explains IPRS verification</li>
-              <li>Specific error messages with both names shown</li>
-              <li>Manual ID photo fallback always available</li>
-              <li>Service failures do not consume attempts</li>
-              <li>Name change requires explicit consent</li>
-              <li>Limited dashboard access while review is pending</li>
-            </ul>
-          </div>
-        </div>
       </div>
     </div>
   );

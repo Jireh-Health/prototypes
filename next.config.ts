@@ -4,7 +4,7 @@ const isGHPages = process.env.GITHUB_ACTIONS === "true";
 
 const nextConfig: NextConfig = {
   output: "export",
-  basePath: isGHPages ? "/id-verification-prototype" : "",
+  basePath: isGHPages ? "/prototypes" : "",
   transpilePackages: ["@jireh-health/ui"],
   images: { unoptimized: true },
 };

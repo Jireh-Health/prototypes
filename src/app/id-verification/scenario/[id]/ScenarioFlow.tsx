@@ -684,7 +684,7 @@ export default function ScenarioPage() {
       <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", background: "#F3F4F6", padding: "24px 16px" }}>
         {/* Header bar */}
         <div style={{ width: "100%", maxWidth: 420, display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
-          <button onClick={() => router.push("/")} style={{ background: "none", border: "none", cursor: "pointer", padding: 4, color: "var(--fg-default)", display: "flex" }}>
+          <button onClick={() => router.push("/id-verification")} style={{ background: "none", border: "none", cursor: "pointer", padding: 4, color: "var(--fg-default)", display: "flex" }}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
           </button>
           <div style={{ flex: 1 }}>

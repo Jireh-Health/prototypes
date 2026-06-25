@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "ID Verification Prototype — Jireh Health",
-  description: "Interactive prototype: sign-up to ID verification flow with fallback and transparency improvements.",
+  title: "Prototypes — Jireh Health",
+  description: "Interactive prototypes for Jireh Health product features.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
