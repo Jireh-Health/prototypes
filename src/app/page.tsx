@@ -13,6 +13,26 @@ const PROTOTYPES = [
     bg: "#FBF0FF",
     status: "Live" as const,
   },
+  {
+    id: "sme-care-fund",
+    title: "SME Care Fund Payments",
+    description:
+      "Payment experience for employees under an employer-funded healthcare allocation. Employer fund appears as a new source alongside M-Pesa, Loan, and Care Fund.",
+    icon: "💼",
+    color: "#2563EB",
+    bg: "#DBEAFE",
+    status: "Live" as const,
+  },
+  {
+    id: "ussd-payment",
+    title: "USSD Payment Interface",
+    description:
+      "Feature phone USSD payment via *654# and *654*XXXXXX#. Payment-first, identity-later with tiered KYC. Cashback, IPRS verification, session timeout handling.",
+    icon: "📞",
+    color: "#059669",
+    bg: "#D1FAE5",
+    status: "Live" as const,
+  },
 ];
 
 export default function PrototypesHome() {
