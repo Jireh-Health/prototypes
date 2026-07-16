@@ -33,6 +33,16 @@ const PROTOTYPES = [
     bg: "#D1FAE5",
     status: "Live" as const,
   },
+  {
+    id: "school-nurse-payment",
+    title: "School Nurse Payment Flow",
+    description:
+      "Nurse-generated payment links for boarding school parents. Offline-tolerant link generation, pre-filled web payments, USSD fallback, and deferred onboarding with cashback.",
+    icon: "🏥",
+    color: "#0891B2",
+    bg: "#CFFAFE",
+    status: "Live" as const,
+  },
 ];
 
 export default function PrototypesHome() {
