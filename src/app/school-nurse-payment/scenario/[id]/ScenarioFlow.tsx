@@ -1380,7 +1380,7 @@ export default function ScenarioFlow() {
   const isPortalStep = currentStep && ["portal-form", "portal-confirm", "portal-status", "portal-auto", "portal-list", "portal-dashboard"].includes(currentStep.kind);
 
   return (
-    <div style={{ maxWidth: 860, margin: "0 auto", padding: "32px 20px 64px" }}>
+    <div style={{ maxWidth: 520, margin: "0 auto", padding: "32px 20px 64px" }}>
       <style>{CSS}</style>
 
       <Link href="/school-nurse-payment" style={{ fontSize: "0.8125rem", color: "#A020F0", textDecoration: "none", fontWeight: 500, display: "inline-flex", alignItems: "center", gap: 4, marginBottom: 20 }}>
@@ -1420,8 +1420,8 @@ export default function ScenarioFlow() {
           <div style={{ width: 60, height: 1, background: "#ddd", margin: "20px auto 0" }} />
         </div>
       ) : (
-        <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", alignItems: "flex-start", justifyContent: "center", gap: 24 }}>
-          <div style={{ opacity: transitioning ? 0.5 : 1, transition: "opacity 0.15s", flexShrink: 0 }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <div style={{ opacity: transitioning ? 0.5 : 1, transition: "opacity 0.15s" }}>
             {/* Render the appropriate mockup based on scenario type and step kind */}
             {(mockType === "ussd" || (isUssdStep && !isMobileStep && !isAppStep && !isPortalStep)) && currentStep && (
               <FeaturePhone
@@ -1450,7 +1450,6 @@ export default function ScenarioFlow() {
               isMobileStep ? (
                 <MobileMockup step={currentStep} onNext={handleMockupNext} />
               ) : (
-                /* SMS and M-Pesa steps rendered inside mobile phone frame */
                 <MobileMockup step={currentStep} onNext={handleMockupNext} />
               )
             )}
@@ -1464,8 +1463,8 @@ export default function ScenarioFlow() {
             )}
           </div>
 
-          {/* Side panel: progress, narrative, hints, and controls */}
-          <div style={{ flex: "1 1 240px", minWidth: 240, maxWidth: 400, display: "flex", flexDirection: "column", alignItems: "center" }}>
+          {/* Progress, narrative, hints, and controls below the mockup */}
+          <div style={{ width: "100%", maxWidth: 320, marginTop: 20, display: "flex", flexDirection: "column", alignItems: "center" }}>
             {/* Progress bar */}
             <div style={{ width: "100%", maxWidth: 320 }}>
               <div style={{ width: "100%", height: 3, background: "#eee", borderRadius: 2 }}>
