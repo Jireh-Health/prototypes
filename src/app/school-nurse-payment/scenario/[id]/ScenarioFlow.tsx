@@ -116,7 +116,7 @@ const SCENARIOS: Record<string, ScenarioData> = {
           { label: "Link", value: "pay.jireh.health/t/abc123" },
           { label: "SMS sent to", value: "0722 XXX XXX" },
         ],
-        narrative: "SMS sent: \"Cana Hospital School Nurse: Daniel Wanjiku was treated today. Pay KES 2,500 via Jireh: https://pay.jireh.health/t/abc123. Charge number: CN-4421.\"",
+        narrative: "SMS sent: \"Cana Hospital School Nurse: Daniel Wanjiku was treated today. Pay KES 2,500 via Jireh: https://pay.jireh.health/t/abc123. No smartphone? Dial *654# and select 'Payment requests'.\"",
       },
       {
         screen: "",
@@ -331,7 +331,7 @@ const SCENARIOS: Record<string, ScenarioData> = {
         screen: "Sending reminder...",
         kind: "portal-auto",
         delay: 1500,
-        narrative: "Reminder SMS sent: \"Reminder: Fatma Salim's treatment at Cana Hospital School Nurse. Pay KES 1,500 via Jireh: https://pay.jireh.health/t/abc123\"",
+        narrative: "Reminder SMS sent: \"Reminder: Fatma Salim's treatment at Cana Hospital School Nurse. Pay KES 1,500 via Jireh: https://pay.jireh.health/t/abc123. No smartphone? Dial *654# and select 'Payment requests'.\"",
       },
       {
         screen: "Reminder sent",
@@ -356,7 +356,7 @@ const SCENARIOS: Record<string, ScenarioData> = {
     mockType: "mobile",
     steps: [
       {
-        screen: "SMS from Cana Hospital School Nurse:\n\nDaniel Wanjiku was treated today. Pay KES 2,500 via Jireh:\nhttps://pay.jireh.health/t/abc123\n\nCharge number: CN-4421",
+        screen: "SMS from Cana Hospital School Nurse:\n\nDaniel Wanjiku was treated today. Pay KES 2,500 via Jireh:\nhttps://pay.jireh.health/t/abc123\n\nNo smartphone? Dial *654# and select 'Payment requests'.",
         kind: "sms",
         narrative: "Grace receives the SMS from the school nurse. She recognises Daniel's name and the school's hospital.",
       },
@@ -373,7 +373,6 @@ const SCENARIOS: Record<string, ScenarioData> = {
           { label: "Facility", value: "Cana Hospital, School Nurse" },
           { label: "Payment Number", value: "JH-384201" },
           { label: "Patient", value: "Daniel Wanjiku" },
-          { label: "Charge number", value: "CN-4421" },
           { label: "Amount", value: "KES 2,500" },
         ],
         narrative: "All payment details are pre-filled from the link. Grace sees exactly who the payment is for and how much. No manual entry needed.",
@@ -423,7 +422,7 @@ const SCENARIOS: Record<string, ScenarioData> = {
         narrative: "\"You earned KES 125 on this payment. Complete your Jireh account to use your cashback on your next payment. It takes under 2 minutes.\" Grace can onboard now or later.",
       },
       {
-        screen: "SMS from JIREH HEALTH:\n\nYou paid KES 2,500 for Daniel Wanjiku at Cana Hospital via Jireh.\n\nYou earned KES 125 cashback.\n\nComplete your account to use it on your next payment:\nhttps://app.jireh.health",
+        screen: "SMS from JIREH HEALTH:\n\nYou paid KES 2,500 for Daniel Wanjiku at Cana Hospital via Jireh.\n\nYou earned KES 125 cashback.\n\nComplete your account to use it on your next payment:\nhttps://app.jireh.health\n\nNo smartphone? Dial *654# and select 'Payment requests'.",
         kind: "sms",
         narrative: "Grace receives a confirmation SMS with her cashback balance and an onboarding link. Total time: 40 seconds.",
       },
@@ -437,7 +436,7 @@ const SCENARIOS: Record<string, ScenarioData> = {
     mockType: "mobile",
     steps: [
       {
-        screen: "SMS from Cana Hospital School Nurse:\n\nDaniel Wanjiku was treated today. Pay KES 1,200 via Jireh:\nhttps://pay.jireh.health/t/def456\n\nCharge number: CN-5587",
+        screen: "SMS from Cana Hospital School Nurse:\n\nDaniel Wanjiku was treated today. Pay KES 1,200 via Jireh:\nhttps://pay.jireh.health/t/def456\n\nNo smartphone? Dial *654# and select 'Payment requests'.",
         kind: "sms",
         narrative: "Two weeks later, Daniel is treated again. Grace receives a new payment link.",
       },
@@ -577,7 +576,7 @@ const SCENARIOS: Record<string, ScenarioData> = {
           { label: "user", value: "Grace Wanjiku" },
           { label: "cashback", value: "KES 185" },
           { label: "notification", value: "New payment request from Cana Hospital School Nurse" },
-          { label: "notification-detail", value: "Daniel Wanjiku • KES 3,500 • CN-7820" },
+          { label: "notification-detail", value: "Daniel Wanjiku • KES 3,500" },
         ],
         narrative: "Grace opens the Jireh app. A new payment request from the school nurse appears at the top of her dashboard. She doesn't need the SMS link.",
       },
@@ -588,7 +587,6 @@ const SCENARIOS: Record<string, ScenarioData> = {
           { label: "Facility", value: "Cana Hospital, School Nurse" },
           { label: "Payment Number", value: "JH-384201" },
           { label: "Patient", value: "Daniel Wanjiku" },
-          { label: "Charge number", value: "CN-7820" },
           { label: "Amount", value: "KES 3,500" },
         ],
         narrative: "Grace taps the notification. The payment request opens with all details pre-filled from the nurse's entry.",
@@ -1382,7 +1380,7 @@ export default function ScenarioFlow() {
   const isPortalStep = currentStep && ["portal-form", "portal-confirm", "portal-status", "portal-auto", "portal-list", "portal-dashboard"].includes(currentStep.kind);
 
   return (
-    <div style={{ maxWidth: 640, margin: "0 auto", padding: "32px 20px 64px" }}>
+    <div style={{ maxWidth: 860, margin: "0 auto", padding: "32px 20px 64px" }}>
       <style>{CSS}</style>
 
       <Link href="/school-nurse-payment" style={{ fontSize: "0.8125rem", color: "#A020F0", textDecoration: "none", fontWeight: 500, display: "inline-flex", alignItems: "center", gap: 4, marginBottom: 20 }}>
@@ -1422,8 +1420,8 @@ export default function ScenarioFlow() {
           <div style={{ width: 60, height: 1, background: "#ddd", margin: "20px auto 0" }} />
         </div>
       ) : (
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <div style={{ opacity: transitioning ? 0.5 : 1, transition: "opacity 0.15s" }}>
+        <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", alignItems: "flex-start", justifyContent: "center", gap: 24 }}>
+          <div style={{ opacity: transitioning ? 0.5 : 1, transition: "opacity 0.15s", flexShrink: 0 }}>
             {/* Render the appropriate mockup based on scenario type and step kind */}
             {(mockType === "ussd" || (isUssdStep && !isMobileStep && !isAppStep && !isPortalStep)) && currentStep && (
               <FeaturePhone
@@ -1466,69 +1464,72 @@ export default function ScenarioFlow() {
             )}
           </div>
 
-          {/* Progress bar */}
-          <div style={{ width: "100%", maxWidth: 320, marginTop: 20 }}>
-            <div style={{ width: "100%", height: 3, background: "#eee", borderRadius: 2 }}>
-              <div style={{
-                width: `${((stepIndex + 1) / scenario.steps.length) * 100}%`,
-                height: "100%", background: "#A020F0", borderRadius: 2, transition: "width 0.3s",
-              }} />
+          {/* Side panel: progress, narrative, hints, and controls */}
+          <div style={{ flex: "1 1 240px", minWidth: 240, maxWidth: 400, display: "flex", flexDirection: "column", alignItems: "center" }}>
+            {/* Progress bar */}
+            <div style={{ width: "100%", maxWidth: 320 }}>
+              <div style={{ width: "100%", height: 3, background: "#eee", borderRadius: 2 }}>
+                <div style={{
+                  width: `${((stepIndex + 1) / scenario.steps.length) * 100}%`,
+                  height: "100%", background: "#A020F0", borderRadius: 2, transition: "width 0.3s",
+                }} />
+              </div>
+              <p style={{ fontSize: "0.6875rem", color: "#999", textAlign: "center", marginTop: 6 }}>
+                Step {stepIndex + 1} of {scenario.steps.length}
+              </p>
             </div>
-            <p style={{ fontSize: "0.6875rem", color: "#999", textAlign: "center", marginTop: 6 }}>
-              Step {stepIndex + 1} of {scenario.steps.length}
-            </p>
-          </div>
 
-          {/* Narrative */}
-          {currentStep?.narrative && (
-            <p style={{ fontSize: "0.8125rem", color: "#666", textAlign: "center", maxWidth: 400, margin: "8px auto 0", lineHeight: 1.55 }}>
-              {currentStep.narrative}
-            </p>
-          )}
+            {/* Narrative */}
+            {currentStep?.narrative && (
+              <p style={{ fontSize: "0.8125rem", color: "#666", textAlign: "center", maxWidth: 400, margin: "8px auto 0", lineHeight: 1.55 }}>
+                {currentStep.narrative}
+              </p>
+            )}
 
-          {/* USSD interaction hints */}
-          {currentStep?.kind === "ussd" && currentStep.expect && (
-            <p style={{ fontSize: "0.6875rem", color: "#A020F0", textAlign: "center", marginTop: 8 }}>
-              Press <strong>{currentStep.expect}</strong> on the keypad
-            </p>
-          )}
-          {currentStep?.kind === "input" && !inputFilled && mockType === "ussd" && (
-            <p style={{ fontSize: "0.6875rem", color: "#A020F0", textAlign: "center", marginTop: 8 }}>
-              Tap <strong>Send</strong> or <strong>OK</strong> to enter: {currentStep.value}
-            </p>
-          )}
+            {/* USSD interaction hints */}
+            {currentStep?.kind === "ussd" && currentStep.expect && (
+              <p style={{ fontSize: "0.6875rem", color: "#A020F0", textAlign: "center", marginTop: 8 }}>
+                Press <strong>{currentStep.expect}</strong> on the keypad
+              </p>
+            )}
+            {currentStep?.kind === "input" && !inputFilled && mockType === "ussd" && (
+              <p style={{ fontSize: "0.6875rem", color: "#A020F0", textAlign: "center", marginTop: 8 }}>
+                Tap <strong>Send</strong> or <strong>OK</strong> to enter: {currentStep.value}
+              </p>
+            )}
 
-          {/* Portal/mobile/app manual advance for status and non-interactive steps */}
-          {currentStep && (
-            (currentStep.kind === "portal-status" || currentStep.kind === "portal-dashboard") && (
+            {/* Portal/mobile/app manual advance for status and non-interactive steps */}
+            {currentStep && (
+              (currentStep.kind === "portal-status" || currentStep.kind === "portal-dashboard") && (
+                <button onClick={handleMockupNext} style={{
+                  marginTop: 16, padding: "8px 24px", borderRadius: 8, border: "1px solid #A020F0", background: "#FBF0FF", color: "#A020F0",
+                  fontSize: "0.8125rem", fontWeight: 600, cursor: "pointer", fontFamily: "var(--font-sans)",
+                }}>
+                  {isLastStep ? "Done" : "Next →"}
+                </button>
+              )
+            )}
+
+            {/* SMS steps in mobile/app context need a next button */}
+            {currentStep && currentStep.kind === "sms" && (mockType === "mobile" || mockType === "app") && (
               <button onClick={handleMockupNext} style={{
                 marginTop: 16, padding: "8px 24px", borderRadius: 8, border: "1px solid #A020F0", background: "#FBF0FF", color: "#A020F0",
                 fontSize: "0.8125rem", fontWeight: 600, cursor: "pointer", fontFamily: "var(--font-sans)",
               }}>
                 {isLastStep ? "Done" : "Next →"}
               </button>
-            )
-          )}
+            )}
 
-          {/* SMS steps in mobile/app context need a next button */}
-          {currentStep && currentStep.kind === "sms" && (mockType === "mobile" || mockType === "app") && (
-            <button onClick={handleMockupNext} style={{
-              marginTop: 16, padding: "8px 24px", borderRadius: 8, border: "1px solid #A020F0", background: "#FBF0FF", color: "#A020F0",
-              fontSize: "0.8125rem", fontWeight: 600, cursor: "pointer", fontFamily: "var(--font-sans)",
-            }}>
-              {isLastStep ? "Done" : "Next →"}
-            </button>
-          )}
-
-          {/* Done steps in mobile/app context */}
-          {currentStep && (currentStep.kind === "mobile-done" || currentStep.kind === "app-done") && (
-            <button onClick={handleMockupNext} style={{
-              marginTop: 16, padding: "8px 24px", borderRadius: 8, border: "1px solid #A020F0", background: "#FBF0FF", color: "#A020F0",
-              fontSize: "0.8125rem", fontWeight: 600, cursor: "pointer", fontFamily: "var(--font-sans)",
-            }}>
-              {isLastStep ? "Done" : "Next →"}
-            </button>
-          )}
+            {/* Done steps in mobile/app context */}
+            {currentStep && (currentStep.kind === "mobile-done" || currentStep.kind === "app-done") && (
+              <button onClick={handleMockupNext} style={{
+                marginTop: 16, padding: "8px 24px", borderRadius: 8, border: "1px solid #A020F0", background: "#FBF0FF", color: "#A020F0",
+                fontSize: "0.8125rem", fontWeight: 600, cursor: "pointer", fontFamily: "var(--font-sans)",
+              }}>
+                {isLastStep ? "Done" : "Next →"}
+              </button>
+            )}
+          </div>
         </div>
       )}
 
